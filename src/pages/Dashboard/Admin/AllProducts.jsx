@@ -1,5 +1,4 @@
-﻿
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
@@ -32,6 +31,14 @@ const AdminAllProducts = () => {
   // Show on Home toggle
   const handleShowHome = async (id, currentStatus) => {
     const newValue = !currentStatus;
+    // limit check :
+    if (newValue) {
+      const currentHomeCount = products.filter((p) => p.showOnHome).length;
+      if (currentHomeCount >= 6) {
+        toast.error("Home page limit reached! Remove a product first (max 6).");
+        return;
+      }
+    }
     try {
       await axiosSecure.patch(`/products/show-home/${id}`, {
         showOnHome: newValue,
@@ -62,21 +69,21 @@ const AdminAllProducts = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     const form = e.target;
-    
+
     const updated = {
       name: form.name.value,
       price: Number(form.price.value),
       category: form.category.value,
       description: form.description.value,
-      images: form.images.value.split(",").map(img => img.trim()),
+      images: form.images.value.split(",").map((img) => img.trim()),
       demoVideo: form.demoVideo.value,
-      paymentOptions: form.paymentOptions.value.split(",").map(p => p.trim()),
+      paymentOptions: form.paymentOptions.value.split(",").map((p) => p.trim()),
     };
 
     try {
       await axiosSecure.patch(`/product/${selectedProduct._id}`, updated);
       toast.success("Product details updated");
-      fetchProducts(); 
+      fetchProducts();
       setOpenUpdate(false);
     } catch {
       toast.error("Update failed");
@@ -109,7 +116,10 @@ const AdminAllProducts = () => {
             </thead>
             <tbody className="divide-y divide-gray-50">
               {products.map((product) => (
-                <tr key={product._id} className="hover:bg-gray-50/50 transition-colors group">
+                <tr
+                  key={product._id}
+                  className="hover:bg-gray-50/50 transition-colors group"
+                >
                   <td className="p-4">
                     <div className="flex items-center gap-3">
                       <img
@@ -117,29 +127,47 @@ const AdminAllProducts = () => {
                         className="w-12 h-12 rounded-lg object-cover shadow-sm"
                         alt="prod"
                       />
-                      <span className="font-bold text-gray-700 truncate max-w-[150px]">{product.name}</span>
+                      <span className="font-bold text-gray-700 truncate max-w-[150px]">
+                        {product.name}
+                      </span>
                     </div>
                   </td>
                   <td className="p-4 text-sm text-gray-500">{product.category}</td>
                   <td className="p-4 font-black text-blue-600">{product.price} Tk</td>
-                  <td className="p-4 text-xs text-gray-400">{product.createdBy || "Admin"}</td>
+                  <td className="p-4 text-xs text-gray-400">
+                    {product.createdBy || "Admin"}
+                  </td>
                   <td className="p-4 text-center">
-                    <button 
+                    <button
                       onClick={() => handleShowHome(product._id, product.showOnHome)}
-                      className={`p-2 rounded-full transition-all ${product.showOnHome ? 'text-blue-500 bg-blue-50' : 'text-gray-300 bg-gray-50 hover:bg-gray-100'}`}
+                      className={`p-2 rounded-full transition-all ${
+                        product.showOnHome
+                          ? "text-blue-500 bg-blue-50"
+                          : "text-gray-300 bg-gray-50 hover:bg-gray-100"
+                      }`}
                     >
-                      {product.showOnHome ? <TbHomeCheck size={24} /> : <TbHomeX size={24} />}
+                      {product.showOnHome ? (
+                        <TbHomeCheck size={24} />
+                      ) : (
+                        <TbHomeX size={24} />
+                      )}
                     </button>
                   </td>
                   <td className="p-4 text-right space-x-2">
                     <button
-                      onClick={() => { setSelectedProduct(product); setOpenUpdate(true); }}
+                      onClick={() => {
+                        setSelectedProduct(product);
+                        setOpenUpdate(true);
+                      }}
                       className="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all shadow-sm"
                     >
                       <TbEdit size={18} />
                     </button>
                     <button
-                      onClick={() => { setSelectedProduct(product); setOpenDelete(true); }}
+                      onClick={() => {
+                        setSelectedProduct(product);
+                        setOpenDelete(true);
+                      }}
                       className="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-all shadow-sm"
                     >
                       <TbTrash size={18} />
@@ -157,48 +185,112 @@ const AdminAllProducts = () => {
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-3xl w-full max-w-3xl shadow-2xl overflow-hidden animate-in zoom-in duration-200">
             <div className="bg-blue-600 text-white p-6 flex justify-between items-center">
-              <h3 className="text-xl font-black ">Modify Product Info</h3>
-              <button onClick={() => setOpenUpdate(false)}><TbX size={24}/></button>
+              <h3 className="text-xl font-black">Modify Product Info</h3>
+              <button onClick={() => setOpenUpdate(false)}>
+                <TbX size={24} />
+              </button>
             </div>
-            
-            <form onSubmit={handleUpdate} className="p-8 grid grid-cols-1 md:grid-cols-2 gap-4 overflow-y-auto max-h-[70vh]">
+
+            <form
+              onSubmit={handleUpdate}
+              className="p-8 grid grid-cols-1 md:grid-cols-2 gap-4 overflow-y-auto max-h-[70vh]"
+            >
+              {/* Product Name */}
               <div className="flex flex-col gap-1">
-                <label className="text-xs font-bold text-gray-400 uppercase">Product Name</label>
-                <input name="name" defaultValue={selectedProduct.name} className="border p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
+                <label className="text-xs font-bold text-gray-400 uppercase">
+                  Product Name
+                </label>
+                <input
+                  name="name"
+                  defaultValue={selectedProduct.name}
+                  className="border p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900"
+                  required
+                />
               </div>
+
+              {/* Price */}
               <div className="flex flex-col gap-1">
-                <label className="text-xs font-bold text-gray-400 uppercase">Price (Tk)</label>
-                <input name="price" type="number" defaultValue={selectedProduct.price} className="border p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required />
+                <label className="text-xs font-bold text-gray-400 uppercase">
+                  Price (Tk)
+                </label>
+                <input
+                  name="price"
+                  type="number"
+                  defaultValue={selectedProduct.price}
+                  className="border p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900"
+                  required
+                />
               </div>
+
+              {/* Category */}
               <div className="flex flex-col gap-1">
-                <label className="text-xs font-bold text-gray-400 uppercase">Category</label>
-                <select name="category" defaultValue={selectedProduct.category} className="border p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                <label className="text-xs font-bold text-gray-400 uppercase">
+                  Category
+                </label>
+                <select
+                  name="category"
+                  defaultValue={selectedProduct.category}
+                  className="border p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900"
+                >
                   <option value="Shirt">Shirt</option>
                   <option value="Pant">Pant</option>
                   <option value="Jacket">Jacket</option>
                   <option value="Accessories">Accessories</option>
                 </select>
               </div>
+
+              {/* Demo Video */}
               <div className="flex flex-col gap-1">
-                <label className="text-xs font-bold text-gray-400 uppercase">Demo Video URL</label>
-                <input name="demoVideo" defaultValue={selectedProduct.demoVideo} className="border p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" />
+                <label className="text-xs font-bold text-gray-400 uppercase">
+                  Demo Video URL
+                </label>
+                <input
+                  name="demoVideo"
+                  defaultValue={selectedProduct.demoVideo}
+                  className="border p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900"
+                />
               </div>
+
+              {/* Description */}
               <div className="flex flex-col gap-1 md:col-span-2">
-                <label className="text-xs font-bold text-gray-400 uppercase">Description</label>
-                <textarea name="description" defaultValue={selectedProduct.description} className="border p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" rows="3"></textarea>
+                <label className="text-xs font-bold text-gray-400 uppercase">
+                  Description
+                </label>
+                <textarea
+                  name="description"
+                  defaultValue={selectedProduct.description}
+                  className="border p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900"
+                  rows="3"
+                ></textarea>
               </div>
+
+              {/* Image URLs */}
               <div className="flex flex-col gap-1 md:col-span-2">
-                <label className="text-xs font-bold text-gray-400 uppercase">Image URLs (comma separated)</label>
-                <input name="images" defaultValue={selectedProduct.images?.join(", ")} className="border p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 font-mono text-xs" />
+                <label className="text-xs font-bold text-gray-400 uppercase">
+                  Image URLs (comma separated)
+                </label>
+                <input
+                  name="images"
+                  defaultValue={selectedProduct.images?.join(", ")}
+                  className="border p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 font-mono text-xs"
+                />
               </div>
+
+              {/* Payment Options */}
               <div className="flex flex-col gap-1 md:col-span-2">
-                <label className="text-xs font-bold text-gray-400 uppercase">Payment Options (comma separated)</label>
-                <input name="paymentOptions" defaultValue={selectedProduct.paymentOptions?.join(", ")} className="border p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" />
+                <label className="text-xs font-bold text-gray-400 uppercase">
+                  Payment Options (comma separated)
+                </label>
+                <input
+                  name="paymentOptions"
+                  defaultValue={selectedProduct.paymentOptions?.join(", ")}
+                  className="border p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900"
+                />
               </div>
 
               <div className="md:col-span-2 pt-4">
                 <button className="bg-blue-500 hover:bg-blue-600 text-white font-black py-4 w-full rounded-2xl transition-all shadow-lg shadow-blue-100">
-                   Updates 
+                  Update
                 </button>
               </div>
             </form>
@@ -214,13 +306,21 @@ const AdminAllProducts = () => {
               <TbAlertCircle size={44} />
             </div>
             <h3 className="text-2xl font-black text-gray-800 mb-2">Are you sure?</h3>
-            <p className="text-gray-500 text-sm mb-8">This action is irreversible. The product data will be wiped from servers.</p>
+            <p className="text-gray-500 text-sm mb-8">
+              This action is irreversible. The product data will be wiped from servers.
+            </p>
 
             <div className="flex gap-3">
-              <button onClick={() => setOpenDelete(false)} className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-3 rounded-xl transition-all">
+              <button
+                onClick={() => setOpenDelete(false)}
+                className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-3 rounded-xl transition-all"
+              >
                 Keep Product
               </button>
-              <button onClick={handleDelete} className="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-red-100">
+              <button
+                onClick={handleDelete}
+                className="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-red-100"
+              >
                 Yes, Delete
               </button>
             </div>

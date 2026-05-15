@@ -102,12 +102,15 @@ const AllProducts = () => {
                             <select
                                 value={category}
                                 onChange={(e) => setCategory(e.target.value)}
-                                className="w-full pl-11 pr-4 py-3 border border-gray-500/50 rounded-2xl focus:ring-2 focus:ring-blue-400 appearance-none outline-none cursor-pointer"
+                                className="w-full pl-11 pr-4 py-3 border border-gray-500/50 rounded-2xl focus:ring-2 focus:ring-blue-400 appearance-none outline-none cursor-pointer text-gray-900 dark:text-white dark:bg-gray-800"
                             >
                                 <option value="all">All Categories</option>
                                 <option value="Shirt">Shirt</option>
                                 <option value="Pant">Pant</option>
                                 <option value="Jacket">Jacket</option>
+                                <option value="Accessories">Accessories</option>
+                                <option value="Indoor">Indoor</option>
+                                <option value="Outdoor">Outdoor</option>
                             </select>
                         </div>
 
@@ -116,7 +119,7 @@ const AllProducts = () => {
                             <select
                                 value={sort}
                                 onChange={(e) => setSort(e.target.value)}
-                                className="w-full pl-11 pr-4 py-3 border border-gray-500/50 rounded-2xl focus:ring-2 focus:ring-blue-400 appearance-none outline-none cursor-pointer"
+                                className="w-full pl-11 pr-4 py-3 border border-gray-500/50 rounded-2xl focus:ring-2 focus:ring-blue-400 appearance-none outline-none cursor-pointer dark:bg-gray-800"
                             >
                                 <option value="default">Sort By: Featured</option>
                                 <option value="price-low">Price: Low to High</option>

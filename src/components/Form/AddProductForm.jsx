@@ -108,7 +108,7 @@ const AddProductForm = ({ onSuccess }) => {
             <input
               {...register("name", { required: "Product name is required" })}
               placeholder="Enter Product Name"
-              className={`border p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 transition-all ${errors.name ? 'border-red-400' : 'border-gray-200'}`}
+              className={`border border-gray-200 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 transition-all ${errors.name ? 'border-red-400' : 'border-gray-200'}`}
             />
             {errors.name && <span className="text-red-500 text-[10px] font-bold uppercase mt-1 ml-1">{errors.name.message}</span>}
           </div>
@@ -117,7 +117,7 @@ const AddProductForm = ({ onSuccess }) => {
             <label className="text-sm font-bold text-gray-600 ml-1">Category *</label>
             <select
               {...register("category", { required: "Category is required" })}
-              className="border border-gray-200 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+              className="border border-gray-200 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900"
             >
               <option value="">Select Category</option>
               <option value="Shirt">Shirt</option>
@@ -137,7 +137,7 @@ const AddProductForm = ({ onSuccess }) => {
             {...register("description", { required: "Description is required" })}
             placeholder="Enter Product Description"
             rows="4"
-            className="border border-gray-200 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500"
+            className="border border-gray-200 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900"
           />
         </div>
 
@@ -149,7 +149,7 @@ const AddProductForm = ({ onSuccess }) => {
               {...register("price", { required: true, min: 1 })}
               type="number"
               placeholder="0"
-              className="border border-gray-200 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500"
+              className="border border-gray-200 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900"
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -158,7 +158,7 @@ const AddProductForm = ({ onSuccess }) => {
               {...register("quantity", { required: true, min: 0 })}
               type="number"
               placeholder="Total Units"
-              className="border border-gray-200 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500"
+              className="border border-gray-200 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900"
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -167,7 +167,7 @@ const AddProductForm = ({ onSuccess }) => {
               {...register("minimumOrder", { required: true, min: 1 })}
               type="number"
               placeholder="MOQ"
-              className="border border-gray-200 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500"
+              className="border border-gray-200 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900"
             />
           </div>
         </div>
@@ -181,7 +181,7 @@ const AddProductForm = ({ onSuccess }) => {
             <input
               {...register("images", { required: "At least one image URL is required" })}
               placeholder="url1, url2, url3"
-              className="border border-gray-200 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500"
+              className="border border-gray-200 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900"
             />
             {/* Image Preview Box */}
             <div className="flex flex-wrap gap-2 mt-2 bg-gray-50 p-2 rounded-lg">
@@ -202,7 +202,7 @@ const AddProductForm = ({ onSuccess }) => {
             <input
               {...register("demoVideo")}
               placeholder="YouTube URL"
-              className="border border-gray-200 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500"
+              className="border border-gray-200 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900"
             />
           </div>
         </div>
@@ -213,7 +213,7 @@ const AddProductForm = ({ onSuccess }) => {
             <label className="text-sm font-bold text-gray-600 ml-1">Payment Options *</label>
             <select
               {...register("paymentOptions", { required: true })}
-              className="border border-gray-200 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+              className="border border-gray-200 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900"
             >
               <option value="Cash on Delivery">Cash on Delivery</option>
               <option value="PayFirst">PayFirst (Advance)</option>
@@ -236,7 +236,7 @@ const AddProductForm = ({ onSuccess }) => {
               type="checkbox"
               id="showOnHome"
               {...register("showOnHome")}
-              className="w-5 h-5 accent-blue-600"
+              className="w-5 h-5 accent-blue-600 dark:bg-white dark:border dark:border-gray-400"
             />
             <label htmlFor="showOnHome" className="text-gray-700 font-bold cursor-pointer">
               Featured Product (Show on Home Page)

@@ -219,11 +219,11 @@ const UpdateProduct = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <label className="text-xs font-bold text-gray-500 uppercase ml-1">Product Name</label>
-                  <input {...register("name", { required: true })} className="w-full border border-gray-200 p-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" />
+                  <input {...register("name", { required: true })} className="w-full border border-gray-200 p-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900" />
                 </div>
                 <div className="space-y-1">
                   <label className="text-xs font-bold text-gray-500 uppercase ml-1">Category</label>
-                  <select {...register("category", { required: true })} className="w-full border border-gray-200 p-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                  <select {...register("category", { required: true })} className="w-full border border-gray-200 p-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900">
                     <option value="Shirt">Shirt</option>
                     <option value="Pant">Pant</option>
                     <option value="Jacket">Jacket</option>
@@ -234,34 +234,34 @@ const UpdateProduct = () => {
 
               <div className="space-y-1">
                 <label className="text-xs font-bold text-gray-500 uppercase ml-1">Description</label>
-                <textarea {...register("description", { required: true })} rows="3" className="w-full border border-gray-200 p-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" />
+                <textarea {...register("description", { required: true })} rows="3" className="w-full border border-gray-200 p-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900" />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="space-y-1">
                   <label className="text-xs font-bold text-gray-500 uppercase ml-1">Price (Tk)</label>
-                  <input {...register("price", { required: true })} type="number" className="w-full border border-gray-200 p-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" />
+                  <input {...register("price", { required: true })} type="number" className="w-full border border-gray-200 p-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900" />
                 </div>
                 <div className="space-y-1">
                   <label className="text-xs font-bold text-gray-500 uppercase ml-1">Stock Qty</label>
-                  <input {...register("quantity", { required: true })} type="number" className="w-full border border-gray-200 p-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" />
+                  <input {...register("quantity", { required: true })} type="number"className="w-full border border-gray-200 p-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900" />
                 </div>
                 <div className="space-y-1">
                   <label className="text-xs font-bold text-gray-500 uppercase ml-1">Min Order</label>
-                  <input {...register("minimumOrder", { required: true })} type="number" className="w-full border border-gray-200 p-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" />
+                  <input {...register("minimumOrder", { required: true })} type="number" className="w-full border border-gray-200 p-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900" />
                 </div>
               </div>
 
               <div className="space-y-1">
                 <label className="text-xs font-bold text-gray-500 uppercase ml-1">Image URL</label>
-                <input {...register("image")} className="w-full border border-gray-200 p-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" />
+                <input {...register("image")} className="w-full border border-gray-200 p-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900" />
               </div>
 
               <div className="space-y-1">
                 <label className="text-xs font-bold text-gray-500 uppercase ml-1">Features & Payment (Comma separated)</label>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input {...register("features")} placeholder="Fast Delivery, Cotton" className="w-full border border-gray-200 p-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" />
-                    <input {...register("paymentOptions")} placeholder="Cash on Delivery, Bkash" className="w-full border border-gray-200 p-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-500" />
+                    <input {...register("features")} placeholder="Fast Delivery, Cotton" className="w-full border border-gray-200 p-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900" />
+                    <input {...register("paymentOptions")} placeholder="Cash on Delivery, Bkash" className="w-full border border-gray-200 p-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900" />
                 </div>
               </div>
 
@@ -274,7 +274,7 @@ const UpdateProduct = () => {
                 <button type="submit" className="flex-1 bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition-all shadow-lg active:scale-95">
                   Save Changes
                 </button>
-                <button type="button" onClick={() => setOpenUpdate(false)} className="flex-1 bg-gray-100 text-gray-600 font-bold py-3 rounded-xl hover:bg-gray-200 transition-all">
+                <button type="button" onClick={() => setOpenUpdate(false)} className="flex-1 bg-gray-100 text-gray-900 font-bold py-3 rounded-xl hover:bg-gray-200 transition-all">
                   Cancel
                 </button>
               </div>

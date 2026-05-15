@@ -135,18 +135,18 @@ const Profile = () => {
             </h2>
 
             <form onSubmit={handleSubmit(handleUpdate)}>
-              <label>Name</label>
+              <label className="text-gray-900">Name</label>
               <input
                 {...register("name")}
                 type="text"
-                className="border w-full p-2 mb-3 rounded"
+                className="border w-full p-2 mb-3 rounded bg-white text-gray-900"
               />
 
-              <label>Photo URL</label>
+              <label className="text-gray-900">Photo URL</label>
               <input
                 {...register("photoURL")}
                 type="text"
-                className="border w-full p-2 mb-3 rounded"
+                className="border w-full p-2 mb-3 rounded bg-white text-gray-900"
               />
 
               <button className="bg-blue-500 text-white px-6 py-2 rounded w-full">
@@ -156,7 +156,7 @@ const Profile = () => {
               <button
                 type="button"
                 onClick={() => setOpenModal(false)}
-                className="mt-2 w-full bg-gray-300 p-2 rounded"
+                className="mt-2 w-full bg-gray-300 p-2 rounded text-gray-900"
               >
                 Cancel
               </button>
